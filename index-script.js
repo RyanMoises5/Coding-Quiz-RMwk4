@@ -5,6 +5,9 @@ var line2 = document.createElement("button");
 var line3 = document.createElement("button");
 var line4 = document.createElement("button");
 var startQuiz = document.querySelector(".start-button");
+var timerEl = document.querySelector(".time");
+var secondsLeft = 75;
+timerEl.textContent = "Time: " + secondsLeft;
 
 var quizIndex = 0;
 var quizQuestions = [
@@ -74,7 +77,20 @@ startQuiz.addEventListener("click", function() {
     startButton.remove();
 
     renderQuizComponents();
+    setTime();
 })
+
+function setTime() {
+    var timerinterval = setInterval(function() {
+
+        secondsLeft--;
+        timerEl.textContent = "Time: " + secondsLeft;
+
+        if (secondsLeft <= 0) {
+            clearInterval(timerinterval);
+        }
+    }, 1000);
+}
 
 function renderQuizComponents() {
     questionLine.textContent = quizQuestions[quizIndex].question;
@@ -119,6 +135,8 @@ buttonContainer.addEventListener("click", function (event) {
         console.log("right");
     } else if (event.target.classList.contains("wrong")) {
         console.log("wrong");
+        secondsLeft = secondsLeft - 10;
+        timerEl.textContent = "Time: " + secondsLeft;
     }
 
     quizIndex += 1;
