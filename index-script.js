@@ -4,9 +4,14 @@ var line1 = document.createElement("button");
 var line2 = document.createElement("button");
 var line3 = document.createElement("button");
 var line4 = document.createElement("button");
+var gameOverHeader = document.createElement("h2");
+var gameOverText = document.createElement("p");
+var gameOverInput = document.createElement("input");
+var gameOverSubmit = document.createElement("button");
 var startQuiz = document.querySelector(".start-button");
 var timerEl = document.querySelector(".time");
 var secondsLeft = 75;
+var timerinterval;
 timerEl.textContent = "Time: " + secondsLeft;
 
 var quizIndex = 0;
@@ -81,13 +86,13 @@ startQuiz.addEventListener("click", function() {
 })
 
 function setTime() {
-    var timerinterval = setInterval(function() {
+    timerinterval = setInterval(function() {
 
         secondsLeft--;
         timerEl.textContent = "Time: " + secondsLeft;
 
         if (secondsLeft <= 0) {
-            clearInterval(timerinterval);
+            gameOver();
         }
     }, 1000);
 }
@@ -137,15 +142,30 @@ buttonContainer.addEventListener("click", function (event) {
         console.log("wrong");
         secondsLeft = secondsLeft - 10;
         timerEl.textContent = "Time: " + secondsLeft;
+        if (secondsLeft <= 0) {
+            gameOver();
+        }
     }
 
     quizIndex += 1;
-
     if (quizIndex >= quizQuestions.length) {
         quizIndex = 0;
-    } else if (quizIndex < 0) {
-        quizIndex = quizQuestions.length - 1;
-    }
+        gameOver();
+    } 
 
     replaceItems();
 })
+
+function gameOver() {
+    clearInterval(timerinterval);
+    questionLine.remove();
+    buttonContainer.remove();
+
+    gameOverHeader.textContent = "All done!";
+    gameOverText.textContent = "Your final score is " + secondsLeft + ". Enter initials:";
+    gameOverSubmit.textContent = "Submit"
+    document.body.appendChild(gameOverHeader);
+    document.body.appendChild(gameOverText);
+    document.body.appendChild(gameOverInput);
+    document.body.appendChild(gameOverSubmit);
+}
