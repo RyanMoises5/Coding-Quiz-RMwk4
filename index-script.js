@@ -13,8 +13,9 @@ var timerEl = document.querySelector(".time");
 var secondsLeft = 75;
 var timerinterval;
 timerEl.textContent = "Time: " + secondsLeft;
-
 var quizIndex = 0;
+var scoreList = [];
+
 var quizQuestions = [
     {
         question: "Question 1: Commonly used data types DO NOT include:",
@@ -136,10 +137,7 @@ function replaceItems () { // Replaces question line, answer choices, and right/
 }
 
 buttonContainer.addEventListener("click", function (event) {
-    if (event.target.classList.contains("right")) {
-        console.log("right");
-    } else if (event.target.classList.contains("wrong")) {
-        console.log("wrong");
+    if (event.target.classList.contains("wrong")) {
         secondsLeft = secondsLeft - 10;
         timerEl.textContent = "Time: " + secondsLeft;
         if (secondsLeft <= 0) {
@@ -148,12 +146,12 @@ buttonContainer.addEventListener("click", function (event) {
     }
 
     quizIndex += 1;
-    if (quizIndex >= quizQuestions.length) {
+    if (quizIndex >= quizQuestions.length) {  // Ends game once all the questions have been answered
         quizIndex = 0;
         gameOver();
     } 
 
-    replaceItems();
+    replaceItems(); 
 })
 
 function gameOver() {
@@ -164,8 +162,30 @@ function gameOver() {
     gameOverHeader.textContent = "All done!";
     gameOverText.textContent = "Your final score is " + secondsLeft + ". Enter initials:";
     gameOverSubmit.textContent = "Submit"
+    gameOverSubmit.setAttribute("class", "submit");
     document.body.appendChild(gameOverHeader);
     document.body.appendChild(gameOverText);
     document.body.appendChild(gameOverInput);
     document.body.appendChild(gameOverSubmit);
+}
+
+gameOverSubmit.addEventListener("click", storeScores);
+
+function storeScores() {
+    
+    var storedScores = JSON.parse(localStorage.getItem("Scores"));
+
+    if (storedScores !== null) {
+        scoreList = storedScores;
+    }
+
+    var NameWithScore = {
+        initials: gameOverInput.value.trim(),
+        score: secondsLeft
+    }
+
+    scoreList.push(NameWithScore);
+    localStorage.setItem("Scores", JSON.stringify(scoreList));
+
+    window.location.href = "highscores.html";
 }
