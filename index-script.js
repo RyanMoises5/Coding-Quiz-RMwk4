@@ -216,5 +216,5 @@ function storeScores() {
     scoreList.push(NameWithScore);
     localStorage.setItem("Scores", JSON.stringify(scoreList));
 
-    window.location.href = "highscores.html";
+    window.location.href = "./highscores.html";
 }

@@ -33,10 +33,10 @@ THEN I can save my initials and my score
 ## URLs and Images
 
 The following link is the student's URL to the completed assignment:
-(https://ryanmoises5.github.io/Javascript-Password-Generator-RMWk3/)
+(https://ryanmoises5.github.io/Coding-Quiz-RMwk4/)
 
 The following link is the Github repository where the associated files are located:
-(https://github.com/RyanMoises5/Javascript-Password-Generator-RMWk3)
+(https://github.com/RyanMoises5/Coding-Quiz-RMwk4)
 
 ![First Page of the coding quiz](./CodingQuizFront.JPG)
 

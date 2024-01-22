@@ -23,11 +23,11 @@ for (let index = 0; index < highLow.length; index++) {
 }
 
 backBtn.addEventListener("click", function () { // Reloads index.html
-    window.location.href = "index.html";
+    window.location.href = "./index.html";
 });
 
 clearBtn.addEventListener("click", function () {  // Clears the local storage of initials and scores
     scoreList = [];
     localStorage.setItem("Scores", JSON.stringify(scoreList));
-    window.location.href = "highscores.html";
+    window.location.href = "./highscores.html";
 })
