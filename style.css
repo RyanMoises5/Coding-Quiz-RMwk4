@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body {
+    text-align: center;
+    margin: 12.5% 20% 0 20%;
+ }
+
+.time {
+    position: absolute;
+    top: 5%;
+    right: 10%;
+}
+
+.go-to-score {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+}
+
+button {
+    background: rgb(127, 95, 212);
+    color: white;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.container button {
+    margin: 10px 10px 10px 20%;
+    display: block;
+ }
+
+ li {
+    list-style-type: none;
+    text-align: left;
+    padding: 0 0 0 33%;
+ }
