@@ -12,6 +12,11 @@ var sorted = storedScores.sort(compareByScore);
 var highLow = sorted.reverse();
 
 for (let index = 0; index < highLow.length; index++) {
+
+    if (index > 9) {
+        break;
+        }
+        
     var liEl = document.createElement("li");
     liEl.textContent = highLow[index].score + " - " + highLow[index].initials
     listEl.appendChild(liEl);

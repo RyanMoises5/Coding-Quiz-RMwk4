@@ -141,24 +141,25 @@ function replaceItems () { // Replaces question line, answer choices, and right/
 }
 
 buttonContainer.addEventListener("click", function (event) {
-    if (event.target.classList.contains("wrong")) {
-        secondsLeft = secondsLeft - 10;
-        timerEl.textContent = "Time: " + secondsLeft;
-        if (secondsLeft <= 0) {
-            gameOver();
+    if (event.target.classList.contains("wrong") || event.target.classList.contains("right")) {
+        
+        if (event.target.classList.contains("wrong")) {
+            secondsLeft = secondsLeft - 10;
+            timerEl.textContent = "Time: " + secondsLeft;
+            if (secondsLeft <= 0) {
+                gameOver();
+            }
         }
+
+        quizIndex += 1;
+        if (quizIndex >= quizQuestions.length) {  // Ends game once all the questions have been answered
+            quizIndex = 0;
+            gameOver();
+        } 
+
+        feedback(event);
+        replaceItems(); 
     }
-
-
-    quizIndex += 1;
-    if (quizIndex >= quizQuestions.length) {  // Ends game once all the questions have been answered
-        quizIndex = 0;
-        gameOver();
-    } 
-
-    replaceItems(); 
-
-    feedback(event);
 })
 
 function feedback(event) {
@@ -171,11 +172,10 @@ function feedback(event) {
     }
 
     clearInterval(feedbackTimer);
-    feedbackLeft = 3;
+    feedbackLeft = 2;
 
     feedbackTimer = setInterval(function() {
         feedbackLeft--; 
-        console.log(feedbackLeft);
         if (feedbackLeft <= 0) {
             clearInterval(feedbackTimer);
             feedbackP.remove();
