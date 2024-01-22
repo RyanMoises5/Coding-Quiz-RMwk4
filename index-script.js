@@ -11,10 +11,14 @@ var gameOverSubmit = document.createElement("button");
 var startQuiz = document.querySelector(".start-button");
 var timerEl = document.querySelector(".time");
 var secondsLeft = 75;
+var feedbackLeft;
 var timerinterval;
+var feedbackTimer;
 timerEl.textContent = "Time: " + secondsLeft;
 var quizIndex = 0;
 var scoreList = [];
+var feedbackP = document.createElement("p");
+feedbackP.setAttribute("class", "feedback");
 
 var quizQuestions = [
     {
@@ -145,6 +149,7 @@ buttonContainer.addEventListener("click", function (event) {
         }
     }
 
+
     quizIndex += 1;
     if (quizIndex >= quizQuestions.length) {  // Ends game once all the questions have been answered
         quizIndex = 0;
@@ -152,7 +157,31 @@ buttonContainer.addEventListener("click", function (event) {
     } 
 
     replaceItems(); 
+
+    feedback(event);
 })
+
+function feedback(event) {
+    if (event.target.classList.contains("wrong")) {
+        feedbackP.textContent = "Incorrect! Penalized 10 seconds."
+        document.body.appendChild(feedbackP);
+    } else if (event.target.classList.contains("right")) {
+        feedbackP.textContent = "Correct!"
+        document.body.appendChild(feedbackP);
+    }
+
+    clearInterval(feedbackTimer);
+    feedbackLeft = 3;
+
+    feedbackTimer = setInterval(function() {
+        feedbackLeft--; 
+        console.log(feedbackLeft);
+        if (feedbackLeft <= 0) {
+            clearInterval(feedbackTimer);
+            feedbackP.remove();
+        }
+    }, 1000)
+}
 
 function gameOver() {
     clearInterval(timerinterval);
