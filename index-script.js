@@ -20,7 +20,7 @@ var scoreList = [];
 var feedbackP = document.createElement("p");
 feedbackP.setAttribute("class", "feedback");
 
-var quizQuestions = [
+var quizQuestions = [ // List of questions, answers, and right/wrong states for each answer
     {
         question: "Question 1: Commonly used data types DO NOT include:",
         answer1: "1. strings",
@@ -78,7 +78,7 @@ var quizQuestions = [
     }
 ]
 
-startQuiz.addEventListener("click", function() {
+startQuiz.addEventListener("click", function() {    // When clicking the button to start quiz, removes the starting elements, renders the elements for the quiz questions and answer buttons, and starts the timer from 75 seconds
     var startH1 = document.querySelector(".start-h1");
     var startP = document.querySelector(".start-p");
     var startButton = document.querySelector(".start-button");
@@ -90,19 +90,19 @@ startQuiz.addEventListener("click", function() {
     setTime();
 })
 
-function setTime() {
+function setTime() { // Starts timer from initial 75seconds
     timerinterval = setInterval(function() {
 
         secondsLeft--;
         timerEl.textContent = "Time: " + secondsLeft;
 
-        if (secondsLeft <= 0) {
+        if (secondsLeft <= 0) { // If timer hits 0 or below, the game ends
             gameOver();
         }
     }, 1000);
 }
 
-function renderQuizComponents() {
+function renderQuizComponents() {       // Appends quiz components, updates the text and classes for the questions and answers
     questionLine.textContent = quizQuestions[quizIndex].question;
 
     line1.textContent = quizQuestions[quizIndex].answer1;
@@ -140,10 +140,10 @@ function replaceItems () { // Replaces question line, answer choices, and right/
     line4.setAttribute("class", quizQuestions[quizIndex].state4);
 }
 
-buttonContainer.addEventListener("click", function (event) {
+buttonContainer.addEventListener("click", function (event) {    // If a button with a class of either right/wrong is clicked, the next set of questions/answers will be updated
     if (event.target.classList.contains("wrong") || event.target.classList.contains("right")) {
         
-        if (event.target.classList.contains("wrong")) {
+        if (event.target.classList.contains("wrong")) {  // If answer is wrong, 10 seconds is deducted from the time
             secondsLeft = secondsLeft - 10;
             timerEl.textContent = "Time: " + secondsLeft;
             if (secondsLeft <= 0) {
@@ -151,7 +151,7 @@ buttonContainer.addEventListener("click", function (event) {
             }
         }
 
-        quizIndex += 1;
+        quizIndex += 1; // Moves onto the next question/answer set
         if (quizIndex >= quizQuestions.length) {  // Ends game once all the questions have been answered
             quizIndex = 0;
             gameOver();
@@ -162,7 +162,7 @@ buttonContainer.addEventListener("click", function (event) {
     }
 })
 
-function feedback(event) {
+function feedback(event) {  // Gives the user feedback on whether the last answer was right/wrong, disappears after 2 seconds
     if (event.target.classList.contains("wrong")) {
         feedbackP.textContent = "Incorrect! Penalized 10 seconds."
         document.body.appendChild(feedbackP);
@@ -183,7 +183,7 @@ function feedback(event) {
     }, 1000)
 }
 
-function gameOver() {
+function gameOver() { // Removes quiz components and appends end screen elements with score and input box for name/initials
     clearInterval(timerinterval);
     questionLine.remove();
     buttonContainer.remove();
@@ -200,7 +200,7 @@ function gameOver() {
 
 gameOverSubmit.addEventListener("click", storeScores);
 
-function storeScores() {
+function storeScores() {  // Loads initials/score array from local storage and pushes in the inputed initial and final score
     
     var storedScores = JSON.parse(localStorage.getItem("Scores"));
 
