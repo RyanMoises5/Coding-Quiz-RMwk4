@@ -4,7 +4,7 @@ Student: Ryan Moises
 
 ## Objective
 
-Text
+To create a beginner coding quiz that scores the user on time and performance and saves the score on a ranking
 
 ## User Story
 
