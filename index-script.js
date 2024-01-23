@@ -208,7 +208,7 @@ function storeScores() {  // Loads initials/score array from local storage and p
         scoreList = storedScores;
     }
 
-    var NameWithScore = {
+    var NameWithScore = {    // Saved as a javascript object with two properties of initials and scores
         initials: gameOverInput.value.trim(),
         score: secondsLeft
     }

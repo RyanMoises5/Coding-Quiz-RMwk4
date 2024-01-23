@@ -4,6 +4,8 @@ var listEl = document.querySelector("ul");
 
 var storedScores = JSON.parse(localStorage.getItem("Scores"));  // Loads initial/score arrays from local storage
 
+// Initials/scores are sgit aved as a javascript object with two properties
+
 function compareByScore(a, b) { // Sorts initial/score pairs by score value, from lowest to highest
     return a.score - b.score;
 }
